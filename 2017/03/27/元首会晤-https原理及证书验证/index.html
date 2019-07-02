@@ -126,7 +126,7 @@
 <p><strong>Hash算法</strong>是一种单向算法，通过Hash算法可以对目标数据生成一段特定长度、唯一的hash值,但是不能通过这个hash值重新计算出原始的数据，因此也称之为摘要算法，经常被用在不需要数据还原的密码加密以及数据完整性校验上，常用的算法有MD2，MD4，MD5，SHA等。</p>
 </blockquote>
 <h2 id="https"><a href="#https" class="headerlink" title="https"></a>https</h2><p>为了保证这些隐私数据能加密传输，于是网景公司设计了SSL（Secure Sockets Layer）协议用于对HTTP协议传输的数据进行加密，从而就诞生了HTTPS。SSL目前的版本是3.0，被IETF（Internet Engineering Task Force）定义在RFC 6101中，之后IETF对SSL 3.0进行了升级，于是出现了TLS（Transport Layer Security） 1.0，定义在RFC 2246。<strong>实际上我们现在的HTTPS都是用的TLS协议</strong>，但是由于SSL出现的时间比较早，并且依旧被现在浏览器所支持，因此SSL依然是HTTPS的代名词，但无论是TLS还是SSL都是上个世纪的事情，SSL最后一个版本是3.0，今后TLS将会继承SSL优良血统继续为我们进行加密服务。</p>
-<h3 id="验证流程"><a href="#验证流程" class="headerlink" title="验证流程"></a>验证流程</h3><h4 id="简明流程"><a href="#简明流程" class="headerlink" title="简明流程"></a>简明流程</h4><p><img src="http://ohx35e8qs.bkt.clouddn.com/17-3-27/69709947-file_1490619944392_3109.png" alt><br>上面这张图片已经清楚的展示了HTTPS工作的流程。</p>
+<h3 id="验证流程"><a href="#验证流程" class="headerlink" title="验证流程"></a>验证流程</h3><h4 id="简明流程"><a href="#简明流程" class="headerlink" title="简明流程"></a>简明流程</h4><p><img src="69709947-file_1490619944392_3109.png" alt><br>上面这张图片已经清楚的展示了HTTPS工作的流程。</p>
 <ol>
 <li>[Server]生成一对密钥：公钥和私钥，我们称之为“KeyPub”，“KeyPri”</li>
 <li>[Server]服务端将公钥（KeyPub）发送到客户端</li>
@@ -136,7 +136,7 @@
 <li>[Server]服务端使用KeyPri解密得到加密过的key2，得到真正的key2</li>
 <li>[Server]使用key2解密消息正文。这样，数据就被安全的传输到了服务端。<br>（上教程未说明证书的作用）</li>
 </ol>
-<h4 id="流程（含证书）"><a href="#流程（含证书）" class="headerlink" title="流程（含证书）"></a>流程（含证书）</h4><p><img src="http://ohx35e8qs.bkt.clouddn.com/17-3-27/80510192-file_1490619981812_760a.png" alt><br>注：文中所写的序号与图不对应但流程是对应的</p>
+<h4 id="流程（含证书）"><a href="#流程（含证书）" class="headerlink" title="流程（含证书）"></a>流程（含证书）</h4><p><img src="80510192-file_1490619981812_760a.png" alt><br>注：文中所写的序号与图不对应但流程是对应的</p>
 <ol>
 <li><p>客户端发起一个https的请求，把自身支持的一系列Cipher Suite（密钥算法套件，简称Cipher）发送给服务端</p>
 </li>
@@ -178,11 +178,11 @@
 <li>根证书<br>签发机构就是本身，windows自带有一部分根证书，这部分证书对于系统来说就是可信的证书。</li>
 </ol>
 <h3 id="证书验证过程"><a href="#证书验证过程" class="headerlink" title="证书验证过程"></a>证书验证过程</h3><p>简单来说，通过hash算法对证书内容取得hash1值，再通过公匙对证书中的数字签名进行解密获得hash2值（为何hash2？参考数字签名组成），若hash1与hash2相符，则认为此证书可信。</p>
-<p>签名验证说明<br><img src="http://ohx35e8qs.bkt.clouddn.com/17-3-27/86806881-file_1490619988194_7dcb.png" alt></p>
+<p>签名验证说明<br><img src="86806881-file_1490619988194_7dcb.png" alt></p>
 <p><strong>问题出现于hash2的解密公匙来于何处</strong><br>此公匙即此证书的上级证书的证书内容中的所有者公匙。</p>
 <p>在获得父证书并取得其公匙的过程中，需要<strong>验证父证书是否可信</strong>，此时若父证书不是根证书则需要继续获得父证书的上一级证书来验证父证书是否可信。若父证书为<strong>根证书</strong>，则可信，则可用其公匙进行验证。<br>（通过此规则，我们平时<strong>手动添加根证书是不安全</strong>的做法，根证书并的机构并不多，Android已经把将近150个CA根证书（数字证书认证机构认证过的证书）内置在我们手机中。）</p>
-<p>多级验证过程<br><img src="http://ohx35e8qs.bkt.clouddn.com/17-3-27/79149138-file_1490620080666_afed.png" alt></p>
-<p>画图版<br><img src="http://ohx35e8qs.bkt.clouddn.com/17-3-27/2419784-file_1490620036007_6e76.png" alt></p>
+<p>多级验证过程<br><img src="79149138-file_1490620080666_afed.png" alt></p>
+<p>画图版<br><img src="2419784-file_1490620036007_6e76.png" alt></p>
 <p>附：证书有多种格式</p>
 <ul>
 <li><p>x.509<br> x.509证书通常用于包含一个公钥</p>
