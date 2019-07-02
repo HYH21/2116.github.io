@@ -114,10 +114,15 @@
     </div>
   </div><div class="post-content"><p>重温梳理了一下计网方面的知识，感觉就像是两国元首如何进行会晤沟通一样，挺有趣，先抽一个安全方面的Https来进行一下首脑之间如何讲悄悄话。</p>
 <a id="more"></a>
+
 <h2 id="加密算法简介"><a href="#加密算法简介" class="headerlink" title="加密算法简介"></a>加密算法简介</h2><p>正文开始之前，我先来解释简单的解释下对称加密和非对称加密。</p>
 <blockquote>
 <p><strong>对称加密</strong>采用对称密码编码技术，也就是编码和解码采用相同描述字符，即加密和解密使用相同的密钥，实现这种加密技术的算法称对称加密算法。对称加密使用简单，密钥较短，加密和解密过程较快，耗时短，常见的对称加密算法有DES，3DES，lDEA，AES，RC4等。</p>
+</blockquote>
+<blockquote>
 <p><strong>非对称加密</strong>与对称加密不同，其加密算法需要两个密钥：公开密钥（publickey）和私有密钥（private），两者是一对的。如果用公钥加密，只能用私钥才能解密。非对称加密保密性好，但加密和解密花费的时间较长，不适合对大文件加密而只适合对少量的数据加密。常见的非对称加密算法有RSA，ECC，DSA(数字签名)等。</p>
+</blockquote>
+<blockquote>
 <p><strong>Hash算法</strong>是一种单向算法，通过Hash算法可以对目标数据生成一段特定长度、唯一的hash值,但是不能通过这个hash值重新计算出原始的数据，因此也称之为摘要算法，经常被用在不需要数据还原的密码加密以及数据完整性校验上，常用的算法有MD2，MD4，MD5，SHA等。</p>
 </blockquote>
 <h2 id="https"><a href="#https" class="headerlink" title="https"></a>https</h2><p>为了保证这些隐私数据能加密传输，于是网景公司设计了SSL（Secure Sockets Layer）协议用于对HTTP协议传输的数据进行加密，从而就诞生了HTTPS。SSL目前的版本是3.0，被IETF（Internet Engineering Task Force）定义在RFC 6101中，之后IETF对SSL 3.0进行了升级，于是出现了TLS（Transport Layer Security） 1.0，定义在RFC 2246。<strong>实际上我们现在的HTTPS都是用的TLS协议</strong>，但是由于SSL出现的时间比较早，并且依旧被现在浏览器所支持，因此SSL依然是HTTPS的代名词，但无论是TLS还是SSL都是上个世纪的事情，SSL最后一个版本是3.0，今后TLS将会继承SSL优良血统继续为我们进行加密服务。</p>
@@ -157,7 +162,7 @@
 <p>因为这串密钥只有客户端和服务端知道，所以即使中间请求被拦截也是没法解密数据的，以此保证了通信的安全</p>
 </li>
 </ol>
-<h3 id="为何需要如此复杂"><a href="#为何需要如此复杂" class="headerlink" title="为何需要如此复杂"></a>为何需要如此复杂</h3><p>主要是因为非对称加密的性能比对称加密的性能差。可参考如下文章<br><a href="http://blog.csdn.net/dd864140130/article/details/52598107" target="_blank" rel="external">http://blog.csdn.net/dd864140130/article/details/52598107</a></p>
+<h3 id="为何需要如此复杂"><a href="#为何需要如此复杂" class="headerlink" title="为何需要如此复杂"></a>为何需要如此复杂</h3><p>主要是因为非对称加密的性能比对称加密的性能差。可参考如下文章<br><a href="http://blog.csdn.net/dd864140130/article/details/52598107" target="_blank" rel="noopener">http://blog.csdn.net/dd864140130/article/details/52598107</a></p>
 <h2 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h2><p>由Certificate  Authority机构发放。</p>
 <p>我们将自己生成的CSR提交给签名商，他们用中级证书机构的私钥Private Key给我们的签名成证书。而他们的的证书又是通过Root CA颁发的（即Root CA通过它的私钥对中级机构提交的CSR进行了签名）。</p>
 <h3 id="证书组成"><a href="#证书组成" class="headerlink" title="证书组成"></a>证书组成</h3><ol>
@@ -185,9 +190,9 @@
 <li><p>PKCS12<br>  PKCS12证书通常用来包含一个私钥。因此，PKCS12需要密码才能打开。</p>
 </li>
 </ul>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://www.cnblogs.com/zery/p/5164795.html" target="_blank" rel="external">http://www.cnblogs.com/zery/p/5164795.html</a></p>
-<p><a href="http://www.cnblogs.com/hyddd/archive/2009/01/07/1371292.html" target="_blank" rel="external">http://www.cnblogs.com/hyddd/archive/2009/01/07/1371292.html</a></p>
-<p><a href="http://lukejin.iteye.com/blog/587200" target="_blank" rel="external">http://lukejin.iteye.com/blog/587200</a><br>google，W3c要推进的内容加密协议ontent Security Policy Level 2 is a Candidate Recommendation.，<a href="https://developers.google.com/web/fundamentals/security/csp/" target="_blank" rel="external">https://developers.google.com/web/fundamentals/security/csp/</a></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://www.cnblogs.com/zery/p/5164795.html" target="_blank" rel="noopener">http://www.cnblogs.com/zery/p/5164795.html</a></p>
+<p><a href="http://www.cnblogs.com/hyddd/archive/2009/01/07/1371292.html" target="_blank" rel="noopener">http://www.cnblogs.com/hyddd/archive/2009/01/07/1371292.html</a></p>
+<p><a href="http://lukejin.iteye.com/blog/587200" target="_blank" rel="noopener">http://lukejin.iteye.com/blog/587200</a><br>google，W3c要推进的内容加密协议ontent Security Policy Level 2 is a Candidate Recommendation.，<a href="https://developers.google.com/web/fundamentals/security/csp/" target="_blank" rel="noopener">https://developers.google.com/web/fundamentals/security/csp/</a></p>
 
       </div>
       <div class="post-copyright">
